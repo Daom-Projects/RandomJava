@@ -34,7 +34,10 @@ public class SorteoCIMM extends javax.swing.JFrame {
             
             jtf_participante1.setText(selFem[0]);
             jtf_participante2.setText(selMas[0]);
-            
+            jlbl_faltantes.setText("Numero de Participantes Faltantes: "+sr.getFaltantes());
+            jlbl_mujeres.setText("Mujeres Faltantes: "+sr.getInstructoras().size());
+            jlbl_hombres.setText("Hombres Faltantes: "+sr.getInstructores().size());
+            jlbl_total.setText("Total de Participantes: "+sr.getOrgList().size());
         }
     }
 
@@ -53,8 +56,11 @@ public class SorteoCIMM extends javax.swing.JFrame {
         jbt_asistencia1 = new javax.swing.JButton();
         jbtm_asistencia2 = new javax.swing.JButton();
         jbn_generar_pareja = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
+        jlbl_faltantes = new javax.swing.JLabel();
         jtf_participante1 = new javax.swing.JTextField();
+        jlbl_total = new javax.swing.JLabel();
+        jlbl_mujeres = new javax.swing.JLabel();
+        jlbl_hombres = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -62,6 +68,7 @@ public class SorteoCIMM extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Generador de Parejas CIMM 2015");
         setResizable(false);
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -86,11 +93,22 @@ public class SorteoCIMM extends javax.swing.JFrame {
 
         jbtm_asistencia2.setText("No Asistio =(");
         jbtm_asistencia2.setEnabled(false);
+        jbtm_asistencia2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtm_asistencia2ActionPerformed(evt);
+            }
+        });
 
+        jbn_generar_pareja.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jbn_generar_pareja.setText("Generar Pareja");
         jbn_generar_pareja.setEnabled(false);
+        jbn_generar_pareja.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbn_generar_parejaActionPerformed(evt);
+            }
+        });
 
-        jLabel3.setText("Participantes Faltates: 200");
+        jlbl_faltantes.setText("Participantes:");
 
         jtf_participante1.setEditable(false);
         jtf_participante1.setBackground(new java.awt.Color(255, 255, 255));
@@ -98,6 +116,12 @@ public class SorteoCIMM extends javax.swing.JFrame {
         jtf_participante1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jtf_participante1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jtf_participante1.setToolTipText("Participante Femenino");
+
+        jlbl_total.setText("Total:");
+
+        jlbl_mujeres.setText("Mujeres Faltantes:");
+
+        jlbl_hombres.setText("Hombres Faltantes:");
 
         jMenu1.setText("Sorteo");
 
@@ -123,26 +147,37 @@ public class SorteoCIMM extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(222, Short.MAX_VALUE)
-                .addComponent(jbn_generar_pareja)
-                .addGap(197, 197, 197))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jtf_participante1)
-                    .addComponent(jtf_participante2, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jbt_asistencia1))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jtf_participante1)
+                            .addComponent(jtf_participante2, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jbt_asistencia1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jbtm_asistencia2)))
+                        .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jlbl_mujeres)
+                            .addComponent(jlbl_hombres))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 167, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jbtm_asistencia2, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING))))
-                .addContainerGap())
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jlbl_total)
+                                .addContainerGap())
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jbn_generar_pareja)
+                                .addGap(262, 262, 262))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jlbl_faltantes)
+                                .addContainerGap())))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -162,10 +197,16 @@ public class SorteoCIMM extends javax.swing.JFrame {
                 .addComponent(jtf_participante2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jbtm_asistencia2)
-                .addGap(8, 8, 8)
+                .addGap(1, 1, 1)
                 .addComponent(jbn_generar_pareja)
-                .addGap(21, 21, 21)
-                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlbl_faltantes)
+                    .addComponent(jlbl_mujeres))
+                .addGap(3, 3, 3)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlbl_total)
+                    .addComponent(jlbl_hombres))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -179,12 +220,95 @@ public class SorteoCIMM extends javax.swing.JFrame {
 
     private void jbt_asistencia1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbt_asistencia1ActionPerformed
         // TODO add your handling code here:
-        sr.saveAssist(selFem, false);
-        sr.saveList();
-        selFem = sr.getRandom('F');
-        jtf_participante1.setText(selFem[0]);
+        generarParticipante('F',false);
     }//GEN-LAST:event_jbt_asistencia1ActionPerformed
 
+    private void jbtm_asistencia2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtm_asistencia2ActionPerformed
+        // TODO add your handling code here:
+        generarParticipante('M',false);
+    }//GEN-LAST:event_jbtm_asistencia2ActionPerformed
+
+    private void jbn_generar_parejaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbn_generar_parejaActionPerformed
+        // TODO add your handling code here:
+        generarParticipante('F',true);
+        generarParticipante('M',true);
+    }//GEN-LAST:event_jbn_generar_parejaActionPerformed
+
+    private void generarParticipante(char Tipo, boolean estado){
+        if (Tipo == 'F'){
+            sr.saveAssist(selFem, estado);
+            if (sr.getInstructoras().size() > 0){
+                selFem = sr.getRandom('F');
+                jtf_participante1.setText(selFem[0]);
+            }else{
+                /* Si no quedan genero femenino se probara a crear pareja de genero masculino*/
+                if (sr.getInstructores().size() > 1) {
+                    JOptionPane.showMessageDialog(rootPane, "Ya no quedan mas participantes FEMENINOS. \n\n Se generara una pareja de participantes MASCULINOS.", "Error al generar participante", JOptionPane.WARNING_MESSAGE);
+                    selFem = sr.getRandom('M');
+                    jtf_participante1.setText(selFem[0]);
+                }else{
+                    /*Si solo queda un participante masculino*/
+                    if (sr.getInstructores().size() == 1){
+                        JOptionPane.showMessageDialog(rootPane, "Ya no quedan mas participantes FEMENINOS. \n\nSolo queda un ultimo participante MASCULINO. \nFin del Sorteo Gracias por participar.", "Error al generar participante", JOptionPane.INFORMATION_MESSAGE);
+                        selMas = sr.getRandom('M');
+                        jtf_participante1.setText(selMas[0]);
+                        jtf_participante2.setText(selMas[0]);
+                    }else{
+                        /* Si ya no quedan participantes */
+                        JOptionPane.showMessageDialog(rootPane, "Ya no quedan mas participantes.\nFin del Sorteo Gracias por participar.", "Error al generar participantes", JOptionPane.INFORMATION_MESSAGE);
+                        jtf_participante1.setText("");
+                        jtf_participante2.setText("");
+                    }
+                    cambiarEstado(false); //Deshabilitar la interfaz Grafica
+                }
+            }
+        }else{
+            sr.saveAssist(selMas, estado);
+            
+            if (sr.getInstructores().size() > 0){
+                selMas = sr.getRandom('M');
+                jtf_participante2.setText(selMas[0]);
+            }else{
+                if (sr.getInstructoras().size() > 1) {
+                    JOptionPane.showMessageDialog(rootPane, "Ya no quedan mas participantes MASCULINOS. \n\n Se generara una pareja de participantes FEMENINOS.", "Error al generar participante", JOptionPane.WARNING_MESSAGE);
+                    selMas = sr.getRandom('F');
+                    jtf_participante1.setText(selMas[0]);
+                }else{
+                    if (sr.getInstructoras().size() == 1){
+                        JOptionPane.showMessageDialog(rootPane, "Ya no quedan mas participantes MASCULINOS. \n\nSolo queda un ultimo participante FEMENINO. \nFin del Sorteo Gracias por participar.", "Error al generar participante", JOptionPane.INFORMATION_MESSAGE);
+                        selFem = sr.getRandom('F');
+                        jtf_participante1.setText(selFem[0]);
+                        jtf_participante2.setText(selFem[0]);
+                    }else{
+                        JOptionPane.showMessageDialog(rootPane, "Ya no quedan mas participantes.\nFin del Sorteo Gracias por participar.", "Error al generar participantes", JOptionPane.INFORMATION_MESSAGE);
+                        jtf_participante1.setText("");
+                        jtf_participante2.setText("");
+                    }
+                    cambiarEstado(false); //Deshabilitar la interfaz Grafica
+                }
+            }            
+            
+        }
+        
+        String res = sr.saveList();
+        if (!res.equalsIgnoreCase("OK")){
+            JOptionPane.showMessageDialog(rootPane, res, "Error al guardar los cambios en el archivo", JOptionPane.ERROR_MESSAGE);
+        }
+
+        jlbl_faltantes.setText("Numero de Participantes Faltantes: "+sr.getFaltantes());
+        jlbl_mujeres.setText("Mujeres Faltantes: "+sr.getInstructoras().size());
+        jlbl_hombres.setText("Hombres Faltantes: "+sr.getInstructores().size());
+    }
+    
+    public void cambiarEstado (boolean estado){
+        jbn_generar_pareja.setEnabled(estado);
+        jbt_asistencia1.setEnabled(estado);
+        jbtm_asistencia2.setEnabled(estado);
+        jtf_participante1.setEnabled(estado);
+        jtf_participante2.setEnabled(estado);
+    }
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -223,7 +347,6 @@ public class SorteoCIMM extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
@@ -232,6 +355,10 @@ public class SorteoCIMM extends javax.swing.JFrame {
     private javax.swing.JButton jbn_generar_pareja;
     private javax.swing.JButton jbt_asistencia1;
     private javax.swing.JButton jbtm_asistencia2;
+    private javax.swing.JLabel jlbl_faltantes;
+    private javax.swing.JLabel jlbl_hombres;
+    private javax.swing.JLabel jlbl_mujeres;
+    private javax.swing.JLabel jlbl_total;
     private javax.swing.JTextField jtf_participante1;
     private javax.swing.JTextField jtf_participante2;
     // End of variables declaration//GEN-END:variables
