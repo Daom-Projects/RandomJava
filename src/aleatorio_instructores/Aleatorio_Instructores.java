@@ -63,7 +63,7 @@ public class Aleatorio_Instructores {
         FileReader archivo = null;
         try {
           String instructor;
-          archivo = new FileReader("C:\\instructores.csv");
+          archivo = new FileReader("instructores.csv");
           BufferedReader lector = new BufferedReader(archivo);
           while ((instructor = lector.readLine()) != null) {
               String [] ins = instructor.split(";");
