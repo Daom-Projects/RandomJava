@@ -112,7 +112,7 @@ public class Sorteo {
         }
     }
     
-    private void saveAssist(String[] in, boolean assist){
+    public void saveAssist(String[] in, boolean assist){
         int item = orgList.lastIndexOf(in);
         if(assist)
             in[2] = "SI";
@@ -121,22 +121,21 @@ public class Sorteo {
         orgList.set(item, in);
     }
     
-    private void saveList(){
+    public String saveList(){
         String lista = "";
         
         FileWriter salida = null;
         BufferedWriter escritor= null;
         try {
-            salida = new FileWriter("C:\\instructores.csv");
+            salida = new FileWriter(rutaArchivo);
             escritor = new BufferedWriter(salida);
             for(String[] ins : orgList){
                 escritor.write(ins[0]+";"+ins[1]+";"+ins[2]+";0");
                 escritor.newLine();
             }
-            
+            return "OK";
         } catch (IOException e) {
-            System.out.println("Error guardando lista: "+e.getMessage());
-            
+            return ("Error guardando lista: "+e.getMessage());
         } finally {
             if (salida != null) {
                 try {
@@ -150,7 +149,7 @@ public class Sorteo {
 
     }
     
-    /**/
+    /* Obtener un elemento aleatorio */
     public String [] getRandom(char genero){
 
         Random rnd = new Random();

@@ -13,7 +13,9 @@ import javax.swing.JOptionPane;
  */
 public class SorteoCIMM extends javax.swing.JFrame {
     private Sorteo sr;
-
+    private String selFem [];
+    private String selMas [];
+    
     /**
      * Creates new form SorteoCIMM
      */
@@ -22,8 +24,16 @@ public class SorteoCIMM extends javax.swing.JFrame {
         sr = new Sorteo();//
         String result = sr.getList();
         if (!result.equalsIgnoreCase("OK")){
-            JOptionPane.showMessageDialog(rootPane, result, "Error al leer el archivo", WIDTH);
+            JOptionPane.showMessageDialog(rootPane, result, "Error al leer el archivo", JOptionPane.ERROR_MESSAGE);
         }else{
+            jbn_generar_pareja.setEnabled(true);
+            jbt_asistencia1.setEnabled(true);
+            jbtm_asistencia2.setEnabled(true);
+            selFem = sr.getRandom('F');
+            selMas = sr.getRandom('M');
+            
+            jta_participante1.setText(selFem[0]);
+            jta_participante2.setText(selMas[0]);
             
         }
     }
@@ -39,12 +49,12 @@ public class SorteoCIMM extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        jta_participante1 = new javax.swing.JTextArea();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jta_participante2 = new javax.swing.JTextField();
+        jbt_asistencia1 = new javax.swing.JButton();
+        jbtm_asistencia2 = new javax.swing.JButton();
+        jbn_generar_pareja = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -53,33 +63,40 @@ public class SorteoCIMM extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Participante 1");
 
-        jTextArea1.setEditable(false);
-        jTextArea1.setColumns(5);
-        jTextArea1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        jTextArea1.setRows(4);
-        jTextArea1.setText("Diego Alonso Ojeda Medina");
-        jTextArea1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jScrollPane1.setViewportView(jTextArea1);
+        jta_participante1.setEditable(false);
+        jta_participante1.setColumns(5);
+        jta_participante1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jta_participante1.setRows(4);
+        jta_participante1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jScrollPane1.setViewportView(jta_participante1);
 
         jLabel2.setText("Participante 2");
 
-        jTextField1.setEditable(false);
-        jTextField1.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField1.setColumns(5);
-        jTextField1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        jTextField1.setText("Carlos Javier Caro Caro");
+        jta_participante2.setEditable(false);
+        jta_participante2.setBackground(new java.awt.Color(255, 255, 255));
+        jta_participante2.setColumns(5);
+        jta_participante2.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
 
-        jButton1.setText("No Asistio =(");
+        jbt_asistencia1.setText("No Asistio =(");
+        jbt_asistencia1.setEnabled(false);
+        jbt_asistencia1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbt_asistencia1ActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("No Asistio =(");
+        jbtm_asistencia2.setText("No Asistio =(");
+        jbtm_asistencia2.setEnabled(false);
 
-        jButton3.setText("Generar Pareja");
+        jbn_generar_pareja.setText("Generar Pareja");
+        jbn_generar_pareja.setEnabled(false);
 
-        jLabel3.setText("Prticipantes Faltates: 200");
+        jLabel3.setText("Participantes Faltates: 200");
 
         jMenu1.setText("Sorteo");
 
@@ -108,31 +125,23 @@ public class SorteoCIMM extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jta_participante2)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                        .addComponent(jLabel2)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 277, Short.MAX_VALUE)
-                                        .addComponent(jButton1))
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jButton2)))
-                        .addContainerGap())
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jbt_asistencia1))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jButton3)
-                                .addGap(166, 166, 166))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addContainerGap())))))
+                            .addComponent(jbtm_asistencia2, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)))
+                    .addComponent(jScrollPane1))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(222, Short.MAX_VALUE)
+                .addComponent(jbn_generar_pareja)
+                .addGap(197, 197, 197))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -147,14 +156,14 @@ public class SorteoCIMM extends javax.swing.JFrame {
                         .addComponent(jLabel2))
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)))
+                        .addComponent(jbt_asistencia1)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jta_participante2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton2)
-                .addGap(18, 18, 18)
-                .addComponent(jButton3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jbtm_asistencia2)
+                .addGap(8, 8, 8)
+                .addComponent(jbn_generar_pareja)
+                .addGap(21, 21, 21)
                 .addComponent(jLabel3)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -166,6 +175,14 @@ public class SorteoCIMM extends javax.swing.JFrame {
         // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_jMenu2MouseClicked
+
+    private void jbt_asistencia1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbt_asistencia1ActionPerformed
+        // TODO add your handling code here:
+        sr.saveAssist(selFem, false);
+        sr.saveList();
+        selFem = sr.getRandom('F');
+        jta_participante1.setText(selFem[0]);
+    }//GEN-LAST:event_jbt_asistencia1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -203,9 +220,6 @@ public class SorteoCIMM extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -215,7 +229,10 @@ public class SorteoCIMM extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JButton jbn_generar_pareja;
+    private javax.swing.JButton jbt_asistencia1;
+    private javax.swing.JButton jbtm_asistencia2;
+    private javax.swing.JTextArea jta_participante1;
+    private javax.swing.JTextField jta_participante2;
     // End of variables declaration//GEN-END:variables
 }
