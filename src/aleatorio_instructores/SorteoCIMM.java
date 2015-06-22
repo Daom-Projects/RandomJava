@@ -32,8 +32,8 @@ public class SorteoCIMM extends javax.swing.JFrame {
             selFem = sr.getRandom('F');
             selMas = sr.getRandom('M');
             
-            jta_participante1.setText(selFem[0]);
-            jta_participante2.setText(selMas[0]);
+            jtf_participante1.setText(selFem[0]);
+            jtf_participante2.setText(selMas[0]);
             
         }
     }
@@ -48,18 +48,17 @@ public class SorteoCIMM extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jta_participante1 = new javax.swing.JTextArea();
         jLabel2 = new javax.swing.JLabel();
-        jta_participante2 = new javax.swing.JTextField();
+        jtf_participante2 = new javax.swing.JTextField();
         jbt_asistencia1 = new javax.swing.JButton();
         jbtm_asistencia2 = new javax.swing.JButton();
         jbn_generar_pareja = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
+        jtf_participante1 = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenu3 = new javax.swing.JMenu();
-        jMenu4 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -68,19 +67,14 @@ public class SorteoCIMM extends javax.swing.JFrame {
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Participante 1");
 
-        jta_participante1.setEditable(false);
-        jta_participante1.setColumns(5);
-        jta_participante1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        jta_participante1.setRows(4);
-        jta_participante1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jScrollPane1.setViewportView(jta_participante1);
-
         jLabel2.setText("Participante 2");
 
-        jta_participante2.setEditable(false);
-        jta_participante2.setBackground(new java.awt.Color(255, 255, 255));
-        jta_participante2.setColumns(5);
-        jta_participante2.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jtf_participante2.setEditable(false);
+        jtf_participante2.setBackground(new java.awt.Color(255, 255, 255));
+        jtf_participante2.setColumns(5);
+        jtf_participante2.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jtf_participante2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jtf_participante2.setToolTipText("Participante Masculino");
 
         jbt_asistencia1.setText("No Asistio =(");
         jbt_asistencia1.setEnabled(false);
@@ -98,13 +92,20 @@ public class SorteoCIMM extends javax.swing.JFrame {
 
         jLabel3.setText("Participantes Faltates: 200");
 
+        jtf_participante1.setEditable(false);
+        jtf_participante1.setBackground(new java.awt.Color(255, 255, 255));
+        jtf_participante1.setColumns(5);
+        jtf_participante1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jtf_participante1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jtf_participante1.setToolTipText("Participante Femenino");
+
         jMenu1.setText("Sorteo");
 
-        jMenu3.setText("Reiniciar Sorteo");
-        jMenu1.add(jMenu3);
+        jMenuItem1.setText("Reiniciar");
+        jMenu1.add(jMenuItem1);
 
-        jMenu4.setText("Omitir Resultado");
-        jMenu1.add(jMenu4);
+        jMenuItem2.setText("Omitir");
+        jMenu1.add(jMenuItem2);
 
         jMenuBar1.add(jMenu1);
 
@@ -122,26 +123,26 @@ public class SorteoCIMM extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jta_participante2)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jbt_asistencia1))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jbtm_asistencia2, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)))
-                    .addComponent(jScrollPane1))
-                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(222, Short.MAX_VALUE)
                 .addComponent(jbn_generar_pareja)
                 .addGap(197, 197, 197))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jtf_participante1)
+                    .addComponent(jtf_participante2, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jbt_asistencia1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jbtm_asistencia2, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -149,16 +150,16 @@ public class SorteoCIMM extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jtf_participante1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
+                        .addGap(29, 29, 29)
                         .addComponent(jLabel2))
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(13, 13, 13)
                         .addComponent(jbt_asistencia1)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jta_participante2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jtf_participante2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jbtm_asistencia2)
                 .addGap(8, 8, 8)
@@ -181,7 +182,7 @@ public class SorteoCIMM extends javax.swing.JFrame {
         sr.saveAssist(selFem, false);
         sr.saveList();
         selFem = sr.getRandom('F');
-        jta_participante1.setText(selFem[0]);
+        jtf_participante1.setText(selFem[0]);
     }//GEN-LAST:event_jbt_asistencia1ActionPerformed
 
     /**
@@ -225,14 +226,13 @@ public class SorteoCIMM extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JButton jbn_generar_pareja;
     private javax.swing.JButton jbt_asistencia1;
     private javax.swing.JButton jbtm_asistencia2;
-    private javax.swing.JTextArea jta_participante1;
-    private javax.swing.JTextField jta_participante2;
+    private javax.swing.JTextField jtf_participante1;
+    private javax.swing.JTextField jtf_participante2;
     // End of variables declaration//GEN-END:variables
 }
