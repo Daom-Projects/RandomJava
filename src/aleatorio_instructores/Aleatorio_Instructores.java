@@ -50,23 +50,38 @@ public class Aleatorio_Instructores {
         String [] ins2 = getRandom('M');
         
         System.out.println(ins1[0]+" :::: "+ins2[0]);
-        saveAssist(ins1, true);
+        saveAssist(ins1, false);
         saveAssist(ins2, false);
         
         saveList();
     }
     
+    /**
+     *
+     * @param genero Genero del instructor que desea obtener aleatoriamente
+     * @return String[] = [0]=Nombre, [1]=Genero, [2]=Asistencia, [3]=Posicion, Si no  
+     *  hay disponibles devuelve null
+     */
     public static String [] getRandom(char genero){
+        
+        
+        
         Random rnd = new Random();
-        String [] ins;
+        String [] ins = null;
         int aleatorio;
         
         if(genero=='F'){
+            if(instructores.size()<=0) //Verificamos instructores disponibles
+                return ins;
+            
             aleatorio = rnd.nextInt(instructoras.size());
             ins = instructoras.get(aleatorio);
             ins[3] = String.valueOf(aleatorio); //Guardamos posición de lista original
             instructoras.remove(aleatorio);
         }else{
+            if(instructoras.size()<=0) //Verificamos instructores disponibles
+                return ins;
+            
             aleatorio = rnd.nextInt(instructores.size());
             ins = instructores.get(aleatorio);
             ins[3] = String.valueOf(aleatorio); //Guardamos posición de lista original
@@ -89,26 +104,26 @@ public class Aleatorio_Instructores {
     private static void saveList(){
         String lista = "";
         
-        
-        
         FileWriter salida = null;
+        BufferedWriter escritor= null;
         try {
             salida = new FileWriter("C:\\instructores.csv");
-            BufferedWriter escritor = new BufferedWriter(salida);
+            escritor = new BufferedWriter(salida);
             for(String[] ins : orgList){
-                escritor.write(lista.concat(ins[0]+";"+ins[1]+";"+ins[2]+";0"));
+                escritor.write(ins[0]+";"+ins[1]+";"+ins[2]+";0");
                 escritor.newLine();
             }
-            //escritor.write(lista);
             
         } catch (IOException e) {
+            System.out.println("Error guardando lista: "+e.getMessage());
             
         } finally {
             if (salida != null) {
                 try {
+                    escritor.close();
                     salida.close();
                 } catch (IOException e) {
-                    
+                    System.out.println("Error cerrando lista: "+e.getMessage());
                 }
             }
         }
@@ -141,7 +156,6 @@ public class Aleatorio_Instructores {
               
               
           }
-          
           
         } catch (FileNotFoundException e) {
             System.out.println("Error archivo no encontrado");
