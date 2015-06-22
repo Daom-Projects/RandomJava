@@ -66,10 +66,56 @@ public class Sorteo {
     public void setRutaArchivo(String rutaArchivo) {
         this.rutaArchivo = rutaArchivo;
     }
-
+    
+    public String getStrInstructores (){
+        int con = 1;
+        String txtInstructores = "\n";
+        for (String[] inst : instructores) {
+            txtInstructores += con+" - ";
+            for (String in : inst) {
+                txtInstructores += in+",";
+            }
+            txtInstructores +="\n";
+            con++;
+        }
+        return txtInstructores;
+    }
+    
+    public String getStrInstructoras (){
+        int con = 1;
+        String txtInstructoras = "\n";
+        for (String[] inst : instructoras) {
+            txtInstructoras += con+" - ";
+            for (String in : inst) {
+                txtInstructoras += in+",";
+            }
+            txtInstructoras +="\n";
+            con++;
+        }
+        return txtInstructoras;
+    }
+    
+    public String getStrOrgList (){
+        int con = 1;
+        String txtOrgList = "\n";
+        for (String[] orList : orgList) {
+            txtOrgList += con+" - ";
+            for (String ol : orList) {
+                txtOrgList += ol+",";
+            }
+            txtOrgList +="\n";
+            con++;
+        }
+        return txtOrgList;
+    }
+    
+    public int getFaltantes () {
+        return (instructoras.size() + instructores.size());
+    }
+    
     @Override
     public String toString() {
-        return "Sorteo{" + "instructores=" + instructores + ", instructoras=" + instructoras + ", orgList=" + orgList + ", rutaArchivo=" + rutaArchivo + '}';
+        return "Datos del Sorteo:\n\n" + "---- Instructores ----\n" + getStrInstructores() + "\n---- Instructoras ----\n" + getStrInstructoras() + "\n---- Lista Original ----\n" + getStrOrgList() + "\n---- RutaArchivo -----\n" + rutaArchivo ;
     }
     
     /* Leer el archivo y cargar los arrays */
@@ -112,7 +158,7 @@ public class Sorteo {
         }
     }
     
-    private void saveAssist(String[] in, boolean assist){
+    public void saveAssist(String[] in, boolean assist){
         int item = orgList.lastIndexOf(in);
         if(assist)
             in[2] = "SI";
@@ -121,22 +167,20 @@ public class Sorteo {
         orgList.set(item, in);
     }
     
-    private void saveList(){
-        String lista = "";
+    public String saveList(){
         
         FileWriter salida = null;
         BufferedWriter escritor= null;
         try {
-            salida = new FileWriter("C:\\instructores.csv");
+            salida = new FileWriter(rutaArchivo);
             escritor = new BufferedWriter(salida);
             for(String[] ins : orgList){
                 escritor.write(ins[0]+";"+ins[1]+";"+ins[2]+";0");
                 escritor.newLine();
             }
-            
+            return "OK";
         } catch (IOException e) {
-            System.out.println("Error guardando lista: "+e.getMessage());
-            
+            return ("Error guardando lista: "+e.getMessage());
         } finally {
             if (salida != null) {
                 try {
@@ -150,7 +194,7 @@ public class Sorteo {
 
     }
     
-    /**/
+    /* Obtener un elemento aleatorio */
     public String [] getRandom(char genero){
 
         Random rnd = new Random();
@@ -166,7 +210,7 @@ public class Sorteo {
             ins[3] = String.valueOf(aleatorio); //Guardamos posición de lista original
             instructoras.remove(aleatorio);
         }else{
-            if(instructoras.size()<=0) //Verificamos instructores disponibles
+            if(instructores.size()<=0) //Verificamos instructores disponibles
                 return ins;
             
             aleatorio = rnd.nextInt(instructores.size());

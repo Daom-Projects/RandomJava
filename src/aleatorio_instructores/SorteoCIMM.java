@@ -13,7 +13,9 @@ import javax.swing.JOptionPane;
  */
 public class SorteoCIMM extends javax.swing.JFrame {
     private Sorteo sr;
-
+    private String selFem [];
+    private String selMas [];
+    
     /**
      * Creates new form SorteoCIMM
      */
@@ -22,9 +24,20 @@ public class SorteoCIMM extends javax.swing.JFrame {
         sr = new Sorteo();//
         String result = sr.getList();
         if (!result.equalsIgnoreCase("OK")){
-            JOptionPane.showMessageDialog(rootPane, result, "Error al leer el archivo", WIDTH);
+            JOptionPane.showMessageDialog(rootPane, result, "Error al leer el archivo", JOptionPane.ERROR_MESSAGE);
         }else{
+            jbn_generar_pareja.setEnabled(true);
+            jbt_asistencia1.setEnabled(true);
+            jbtm_asistencia2.setEnabled(true);
+            selFem = sr.getRandom('F');
+            selMas = sr.getRandom('M');
             
+            jtf_participante1.setText(selFem[0]);
+            jtf_participante2.setText(selMas[0]);
+            jlbl_faltantes.setText("Numero de Participantes Faltantes: "+sr.getFaltantes());
+            jlbl_mujeres.setText("Mujeres Faltantes: "+sr.getInstructoras().size());
+            jlbl_hombres.setText("Hombres Faltantes: "+sr.getInstructores().size());
+            jlbl_total.setText("Total de Participantes: "+sr.getOrgList().size());
         }
     }
 
@@ -38,56 +51,85 @@ public class SorteoCIMM extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
+        jtf_participante2 = new javax.swing.JTextField();
+        jbt_asistencia1 = new javax.swing.JButton();
+        jbtm_asistencia2 = new javax.swing.JButton();
+        jbn_generar_pareja = new javax.swing.JButton();
+        jlbl_faltantes = new javax.swing.JLabel();
+        jtf_participante1 = new javax.swing.JTextField();
+        jlbl_total = new javax.swing.JLabel();
+        jlbl_mujeres = new javax.swing.JLabel();
+        jlbl_hombres = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenu3 = new javax.swing.JMenu();
-        jMenu4 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Generador de Parejas CIMM 2015");
+        setResizable(false);
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Participante 1");
 
-        jTextArea1.setEditable(false);
-        jTextArea1.setColumns(5);
-        jTextArea1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        jTextArea1.setRows(4);
-        jTextArea1.setText("Diego Alonso Ojeda Medina");
-        jTextArea1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jScrollPane1.setViewportView(jTextArea1);
-
         jLabel2.setText("Participante 2");
 
-        jTextField1.setEditable(false);
-        jTextField1.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField1.setColumns(5);
-        jTextField1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        jTextField1.setText("Carlos Javier Caro Caro");
+        jtf_participante2.setEditable(false);
+        jtf_participante2.setBackground(new java.awt.Color(255, 255, 255));
+        jtf_participante2.setColumns(5);
+        jtf_participante2.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jtf_participante2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jtf_participante2.setToolTipText("Participante Masculino");
 
-        jButton1.setText("No Asistio =(");
+        jbt_asistencia1.setText("No Asistio =(");
+        jbt_asistencia1.setEnabled(false);
+        jbt_asistencia1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbt_asistencia1ActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("No Asistio =(");
+        jbtm_asistencia2.setText("No Asistio =(");
+        jbtm_asistencia2.setEnabled(false);
+        jbtm_asistencia2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtm_asistencia2ActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("Generar Pareja");
+        jbn_generar_pareja.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jbn_generar_pareja.setText("Generar Pareja");
+        jbn_generar_pareja.setEnabled(false);
+        jbn_generar_pareja.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbn_generar_parejaActionPerformed(evt);
+            }
+        });
 
-        jLabel3.setText("Prticipantes Faltates: 200");
+        jlbl_faltantes.setText("Participantes:");
+
+        jtf_participante1.setEditable(false);
+        jtf_participante1.setBackground(new java.awt.Color(255, 255, 255));
+        jtf_participante1.setColumns(5);
+        jtf_participante1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jtf_participante1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jtf_participante1.setToolTipText("Participante Femenino");
+
+        jlbl_total.setText("Total:");
+
+        jlbl_mujeres.setText("Mujeres Faltantes:");
+
+        jlbl_hombres.setText("Hombres Faltantes:");
 
         jMenu1.setText("Sorteo");
 
-        jMenu3.setText("Reiniciar Sorteo");
-        jMenu1.add(jMenu3);
+        jMenuItem1.setText("Reiniciar");
+        jMenu1.add(jMenuItem1);
 
-        jMenu4.setText("Omitir Resultado");
-        jMenu1.add(jMenu4);
+        jMenuItem2.setText("Omitir");
+        jMenu1.add(jMenuItem2);
 
         jMenuBar1.add(jMenu1);
 
@@ -108,30 +150,33 @@ public class SorteoCIMM extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                        .addComponent(jLabel2)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 277, Short.MAX_VALUE)
-                                        .addComponent(jButton1))
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jButton2)))
-                        .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jtf_participante1)
+                            .addComponent(jtf_participante2, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jbt_asistencia1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jbtm_asistencia2)))
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jlbl_mujeres)
+                            .addComponent(jlbl_hombres))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 167, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jButton3)
-                                .addGap(166, 166, 166))
+                                .addComponent(jlbl_total)
+                                .addContainerGap())
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel3)
+                                .addComponent(jbn_generar_pareja)
+                                .addGap(262, 262, 262))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jlbl_faltantes)
                                 .addContainerGap())))))
         );
         layout.setVerticalGroup(
@@ -140,22 +185,28 @@ public class SorteoCIMM extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jtf_participante1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
+                        .addGap(29, 29, 29)
                         .addComponent(jLabel2))
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)))
+                        .addGap(13, 13, 13)
+                        .addComponent(jbt_asistencia1)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jtf_participante2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton2)
-                .addGap(18, 18, 18)
-                .addComponent(jButton3)
+                .addComponent(jbtm_asistencia2)
+                .addGap(1, 1, 1)
+                .addComponent(jbn_generar_pareja)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel3)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlbl_faltantes)
+                    .addComponent(jlbl_mujeres))
+                .addGap(3, 3, 3)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlbl_total)
+                    .addComponent(jlbl_hombres))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -167,6 +218,97 @@ public class SorteoCIMM extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_jMenu2MouseClicked
 
+    private void jbt_asistencia1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbt_asistencia1ActionPerformed
+        // TODO add your handling code here:
+        generarParticipante('F',false);
+    }//GEN-LAST:event_jbt_asistencia1ActionPerformed
+
+    private void jbtm_asistencia2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtm_asistencia2ActionPerformed
+        // TODO add your handling code here:
+        generarParticipante('M',false);
+    }//GEN-LAST:event_jbtm_asistencia2ActionPerformed
+
+    private void jbn_generar_parejaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbn_generar_parejaActionPerformed
+        // TODO add your handling code here:
+        generarParticipante('F',true);
+        generarParticipante('M',true);
+    }//GEN-LAST:event_jbn_generar_parejaActionPerformed
+
+    private void generarParticipante(char Tipo, boolean estado){
+        if (Tipo == 'F'){
+            sr.saveAssist(selFem, estado);
+            if (sr.getInstructoras().size() > 0){
+                selFem = sr.getRandom('F');
+                jtf_participante1.setText(selFem[0]);
+            }else{
+                /* Si no quedan genero femenino se probara a crear pareja de genero masculino*/
+                if (sr.getInstructores().size() > 1) {
+                    JOptionPane.showMessageDialog(rootPane, "Ya no quedan mas participantes FEMENINOS. \n\n Se generara una pareja de participantes MASCULINOS.", "Error al generar participante", JOptionPane.WARNING_MESSAGE);
+                    selFem = sr.getRandom('M');
+                    jtf_participante1.setText(selFem[0]);
+                }else{
+                    /*Si solo queda un participante masculino*/
+                    if (sr.getInstructores().size() == 1){
+                        JOptionPane.showMessageDialog(rootPane, "Ya no quedan mas participantes FEMENINOS. \n\nSolo queda un ultimo participante MASCULINO. \nFin del Sorteo Gracias por participar.", "Error al generar participante", JOptionPane.INFORMATION_MESSAGE);
+                        selMas = sr.getRandom('M');
+                        jtf_participante1.setText(selMas[0]);
+                        jtf_participante2.setText(selMas[0]);
+                    }else{
+                        /* Si ya no quedan participantes */
+                        JOptionPane.showMessageDialog(rootPane, "Ya no quedan mas participantes.\nFin del Sorteo Gracias por participar.", "Error al generar participantes", JOptionPane.INFORMATION_MESSAGE);
+                        jtf_participante1.setText("");
+                        jtf_participante2.setText("");
+                    }
+                    cambiarEstado(false); //Deshabilitar la interfaz Grafica
+                }
+            }
+        }else{
+            sr.saveAssist(selMas, estado);
+            
+            if (sr.getInstructores().size() > 0){
+                selMas = sr.getRandom('M');
+                jtf_participante2.setText(selMas[0]);
+            }else{
+                if (sr.getInstructoras().size() > 1) {
+                    JOptionPane.showMessageDialog(rootPane, "Ya no quedan mas participantes MASCULINOS. \n\n Se generara una pareja de participantes FEMENINOS.", "Error al generar participante", JOptionPane.WARNING_MESSAGE);
+                    selMas = sr.getRandom('F');
+                    jtf_participante1.setText(selMas[0]);
+                }else{
+                    if (sr.getInstructoras().size() == 1){
+                        JOptionPane.showMessageDialog(rootPane, "Ya no quedan mas participantes MASCULINOS. \n\nSolo queda un ultimo participante FEMENINO. \nFin del Sorteo Gracias por participar.", "Error al generar participante", JOptionPane.INFORMATION_MESSAGE);
+                        selFem = sr.getRandom('F');
+                        jtf_participante1.setText(selFem[0]);
+                        jtf_participante2.setText(selFem[0]);
+                    }else{
+                        JOptionPane.showMessageDialog(rootPane, "Ya no quedan mas participantes.\nFin del Sorteo Gracias por participar.", "Error al generar participantes", JOptionPane.INFORMATION_MESSAGE);
+                        jtf_participante1.setText("");
+                        jtf_participante2.setText("");
+                    }
+                    cambiarEstado(false); //Deshabilitar la interfaz Grafica
+                }
+            }            
+            
+        }
+        
+        String res = sr.saveList();
+        if (!res.equalsIgnoreCase("OK")){
+            JOptionPane.showMessageDialog(rootPane, res, "Error al guardar los cambios en el archivo", JOptionPane.ERROR_MESSAGE);
+        }
+
+        jlbl_faltantes.setText("Numero de Participantes Faltantes: "+sr.getFaltantes());
+        jlbl_mujeres.setText("Mujeres Faltantes: "+sr.getInstructoras().size());
+        jlbl_hombres.setText("Hombres Faltantes: "+sr.getInstructores().size());
+    }
+    
+    public void cambiarEstado (boolean estado){
+        jbn_generar_pareja.setEnabled(estado);
+        jbt_asistencia1.setEnabled(estado);
+        jbtm_asistencia2.setEnabled(estado);
+        jtf_participante1.setEnabled(estado);
+        jtf_participante2.setEnabled(estado);
+    }
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -203,19 +345,21 @@ public class SorteoCIMM extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JButton jbn_generar_pareja;
+    private javax.swing.JButton jbt_asistencia1;
+    private javax.swing.JButton jbtm_asistencia2;
+    private javax.swing.JLabel jlbl_faltantes;
+    private javax.swing.JLabel jlbl_hombres;
+    private javax.swing.JLabel jlbl_mujeres;
+    private javax.swing.JLabel jlbl_total;
+    private javax.swing.JTextField jtf_participante1;
+    private javax.swing.JTextField jtf_participante2;
     // End of variables declaration//GEN-END:variables
 }
