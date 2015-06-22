@@ -5,17 +5,27 @@
  */
 package aleatorio_instructores;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author DiegoAlonso
  */
 public class SorteoCIMM extends javax.swing.JFrame {
+    private Sorteo sr;
 
     /**
      * Creates new form SorteoCIMM
      */
     public SorteoCIMM() {
         initComponents();
+        sr = new Sorteo();//
+        String result = sr.getList();
+        if (!result.equalsIgnoreCase("OK")){
+            JOptionPane.showMessageDialog(rootPane, result, "Error al leer el archivo", WIDTH);
+        }else{
+            
+        }
     }
 
     /**
@@ -82,6 +92,11 @@ public class SorteoCIMM extends javax.swing.JFrame {
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Salir");
+        jMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu2MouseClicked(evt);
+            }
+        });
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -146,6 +161,11 @@ public class SorteoCIMM extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_jMenu2MouseClicked
 
     /**
      * @param args the command line arguments
